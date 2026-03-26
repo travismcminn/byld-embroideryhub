@@ -64,53 +64,47 @@
     /* ─── Header ─── */
     .header {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 0;
+      gap: 14px;
       margin-bottom: 36px;
       animation: fadeDown 0.6s ease both;
     }
 
-    .header-logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header-logo-wrap img {
-      height: 44px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .header-divider {
-      width: 1px;
-      height: 40px;
-      background: var(--border);
-      margin: 0 24px;
-    }
-
-    .header-badge {
+    .collab-strip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--teal-pale);
-      color: var(--teal);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 20px;
-      margin-bottom: 8px;
+      gap: 20px;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 60px;
+      padding: 10px 28px;
+      box-shadow: var(--shadow-sm);
     }
 
-    .header-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--teal);
+    .collab-logo {
+      height: 36px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .collab-x {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--border);
+      line-height: 1;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .header-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
     }
 
     /* ─── Hero text ─── */
@@ -491,8 +485,8 @@
     @media (max-width: 768px) {
       .page-wrap { padding: 24px 16px 40px; }
 
-      .header { flex-direction: column; gap: 16px; }
-      .header-divider { width: 60px; height: 1px; margin: 0; }
+      .collab-strip { padding: 8px 20px; gap: 14px; }
+      .collab-logo { height: 28px; max-width: 110px; }
 
       .stats-strip { display: none; }
 
@@ -516,19 +510,18 @@
 
     <!-- Header -->
     <header class="header">
-      <div class="header-logo-wrap">
+      <div class="header-eyebrow">Equipment Financing Partnership</div>
+      <div class="collab-strip">
         <img
           src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/logo.jpg?v=1774549240"
           alt="Embroidery Hub"
+          class="collab-logo"
         >
-      </div>
-      <div class="header-divider"></div>
-      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
-        <div class="header-badge">Financing Partner</div>
+        <span class="collab-x">×</span>
         <img
           src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/byld_finance_logo.png?v=1746030247"
           alt="BYLD Finance"
-          style="height: 32px; width: auto; object-fit: contain;"
+          class="collab-logo"
         >
       </div>
     </header>
@@ -596,9 +589,9 @@
                 <div class="contact-name">Charlie McMinn</div>
                 <div class="contact-role">Equipment Finance Advisor, BYLD Finance</div>
                 <div class="contact-links">
-                  <a href="mailto:charlie@byldfinance.com" class="contact-link">
+                  <a href="/cdn-cgi/l/email-protection#f3909b92819f9a96b3918a9f97959a9d929d9096dd909c9e" class="contact-link">
                     <span class="contact-link-icon">✉</span>
-                    charlie@byldfinance.com
+                    <span class="__cf_email__" data-cfemail="3c5f545d4e5055597c5e4550585a55525d525f59125f5351">[email&#160;protected]</span>
                   </a>
                   <a href="tel:6129780728" class="contact-link">
                     <span class="contact-link-icon">📞</span>
@@ -662,7 +655,7 @@
 
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ─── Payment Estimator ───────────────────────────────────
     const slider = document.getElementById('equipmentSlider');
     const valueLabel = document.getElementById('equipmentValue');
@@ -735,17 +728,4 @@
     function goTo(n) {
       current = (n + reviews.length) % reviews.length;
       track.style.transform = `translateX(calc(-${current * 100}% - ${current * 12}px))`;
-      dots.querySelectorAll('.review-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      clearInterval(timer);
-      startTimer();
-    }
-
-    function startTimer() {
-      timer = setInterval(() => goTo(current + 1), 5500);
-    }
-
-    buildReviews();
-    startTimer();
-  </script>
-</body>
-</html>
+      dots.querySelectorAll('.review-dot').forEach((d, i) => d.classLi
