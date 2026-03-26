@@ -24,9 +24,9 @@
       --gold: #c9963a;
       --gold-light: #f5e6c8;
       --border: #e2ddd6;
+      --border-dark: #b0a89e;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
       --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
       --radius: 14px;
       --radius-sm: 8px;
     }
@@ -41,7 +41,6 @@
       overflow-x: hidden;
     }
 
-    /* Subtle background texture */
     body::before {
       content: '';
       position: fixed;
@@ -90,10 +89,11 @@
       display: block;
     }
 
+    /* FIX: × uses border-dark so it's clearly visible against white */
     .collab-x {
       font-family: 'DM Serif Display', serif;
       font-size: 1.5rem;
-      color: var(--border);
+      color: var(--border-dark);
       line-height: 1;
       user-select: none;
       flex-shrink: 0;
@@ -107,7 +107,7 @@
       color: var(--ink-light);
     }
 
-    /* ─── Hero text ─── */
+    /* ─── Hero ─── */
     .hero {
       text-align: center;
       margin-bottom: 40px;
@@ -156,7 +156,7 @@
     }
 
     .stat-item:first-child { border-radius: var(--radius) 0 0 var(--radius); }
-    .stat-item:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+    .stat-item:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
 
     .stat-num {
       font-family: 'DM Serif Display', serif;
@@ -193,45 +193,50 @@
     }
 
     .card-header {
-      padding: 20px 24px 16px;
+      padding: 18px 24px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
+    /* FIX: SVG-based icons — no emoji */
     .card-icon {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
       flex-shrink: 0;
     }
 
     .card-icon.teal { background: var(--teal-pale); }
     .card-icon.gold { background: var(--gold-light); }
+    .card-icon svg  { width: 16px; height: 16px; }
 
+    /* FIX: card titles use DM Sans semibold — serif reserved for hero */
     .card-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
       color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      margin-top: 2px;
     }
 
     .card-body {
       padding: 20px 24px 24px;
     }
 
-    /* ─── Form card ─── */
+    /* FIX: small bottom padding so JotForm doesn't clip at edge */
     .form-card .card-body {
-      padding: 0;
-    }
-
-    .form-card iframe,
-    .form-card > div > div {
-      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 0 0 4px 0;
     }
 
     /* ─── Right column ─── */
@@ -241,31 +246,33 @@
       gap: 20px;
     }
 
-    /* ─── Contact block ─── */
+    /* ─── Contact ─── */
     .contact-row {
       display: flex;
       align-items: center;
       gap: 16px;
     }
 
+    /* FIX: solid border + outline so the ring effect is clearly visible */
     .contact-avatar {
       width: 68px;
       height: 68px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
-      box-shadow: 0 0 0 3px var(--teal-pale), 0 0 0 5px var(--teal);
+      border: 3px solid var(--teal);
+      outline: 4px solid var(--teal-pale);
     }
 
     .contact-name {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--ink);
       margin-bottom: 2px;
     }
 
     .contact-role {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--ink-light);
       margin-bottom: 10px;
     }
@@ -273,13 +280,13 @@
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
     }
 
     .contact-link {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       font-size: 0.875rem;
       color: var(--teal);
       text-decoration: none;
@@ -290,15 +297,17 @@
     .contact-link:hover { color: var(--teal-light); }
 
     .contact-link-icon {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       background: var(--teal-pale);
-      border-radius: 4px;
+      border-radius: 5px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
+      flex-shrink: 0;
     }
+
+    .contact-link-icon svg { width: 11px; height: 11px; }
 
     /* ─── Estimator ─── */
     .estimator-label {
@@ -320,7 +329,6 @@
       color: var(--teal);
     }
 
-    /* Custom slider */
     input[type=range] {
       -webkit-appearance: none;
       appearance: none;
@@ -376,27 +384,29 @@
     .term-card:hover {
       border-color: var(--teal);
       background: var(--teal-pale);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
     .term-months {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-light);
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       margin-bottom: 5px;
     }
 
+    /* FIX: payment fades in when slider updates */
     .term-payment {
       font-family: 'DM Serif Display', serif;
       font-size: 1.1rem;
       color: var(--teal);
       display: block;
+      transition: opacity 0.15s;
     }
 
     .term-per {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--ink-light);
     }
 
@@ -405,13 +415,13 @@
 
     .review-track {
       display: flex;
-      gap: 12px;
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
     }
 
+    /* FIX: flex: 0 0 100% ensures items are exactly one container-width wide */
     .review-item {
-      flex-shrink: 0;
-      width: 100%;
+      flex: 0 0 100%;
       background: var(--cream);
       border-radius: var(--radius-sm);
       padding: 16px;
@@ -420,15 +430,15 @@
 
     .review-stars {
       color: var(--gold);
-      font-size: 0.8rem;
-      letter-spacing: 1px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
       margin-bottom: 8px;
     }
 
     .review-text {
       font-size: 0.875rem;
       color: var(--ink-muted);
-      line-height: 1.6;
+      line-height: 1.65;
       font-style: italic;
       margin-bottom: 10px;
     }
@@ -452,7 +462,7 @@
       border-radius: 3px;
       background: var(--border);
       cursor: pointer;
-      transition: background 0.2s, width 0.2s;
+      transition: background 0.25s, width 0.25s;
     }
 
     .review-dot.active {
@@ -460,7 +470,7 @@
       width: 18px;
     }
 
-    /* ─── Footer note ─── */
+    /* ─── Footer ─── */
     .footer-note {
       text-align: center;
       font-size: 0.75rem;
@@ -484,17 +494,15 @@
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
       .page-wrap { padding: 24px 16px 40px; }
-
       .collab-strip { padding: 12px 28px; gap: 20px; }
       .collab-logo { height: 40px; max-width: 150px; }
-
       .stats-strip { display: none; }
-
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-
       .hero h1 { font-size: 1.8rem; }
+
+      /* FIX: form first on mobile — correct conversion funnel order */
+      .main-grid { grid-template-columns: 1fr; }
+      .form-card { order: 1; }
+      .right-col  { order: 2; }
     }
 
     @media (max-width: 480px) {
@@ -558,10 +566,17 @@
       <!-- LEFT: Form -->
       <div class="card form-card">
         <div class="card-header">
-          <div class="card-icon teal">📋</div>
+          <div class="card-icon teal">
+            <svg viewBox="0 0 16 16" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2.5" y="1.5" width="10" height="13" rx="1.5"/>
+              <line x1="5" y1="5.5" x2="9.5" y2="5.5"/>
+              <line x1="5" y1="8"   x2="9.5" y2="8"/>
+              <line x1="5" y1="10.5" x2="7.5" y2="10.5"/>
+            </svg>
+          </div>
           <div>
             <div class="card-title">Start Your Application</div>
-            <div style="font-size: 0.78rem; color: var(--ink-light); margin-top: 2px;">Takes about 3 minutes</div>
+            <div class="card-subtitle">Takes about 3 minutes</div>
           </div>
         </div>
         <div class="card-body">
@@ -575,7 +590,11 @@
         <!-- Contact card -->
         <div class="card">
           <div class="card-header">
-            <div class="card-icon teal">💬</div>
+            <div class="card-icon teal">
+              <svg viewBox="0 0 16 16" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3.5A1.5 1.5 0 013.5 2h9A1.5 1.5 0 0114 3.5v5.5A1.5 1.5 0 0112.5 10.5H9.5l-3 3v-3H3.5A1.5 1.5 0 012 9V3.5z"/>
+              </svg>
+            </div>
             <div class="card-title">Have Questions?</div>
           </div>
           <div class="card-body">
@@ -589,12 +608,21 @@
                 <div class="contact-name">Charlie McMinn</div>
                 <div class="contact-role">Equipment Finance Advisor, BYLD Finance</div>
                 <div class="contact-links">
-                  <a href="/cdn-cgi/l/email-protection#f3909b92819f9a96b3918a9f97959a9d929d9096dd909c9e" class="contact-link">
-                    <span class="contact-link-icon">✉</span>
-                    <span class="__cf_email__" data-cfemail="3c5f545d4e5055597c5e4550585a55525d525f59125f5351">[email&#160;protected]</span>
+                  <a href="mailto:charlie@byldfinance.com" class="contact-link">
+                    <span class="contact-link-icon">
+                      <svg viewBox="0 0 11 11" fill="none" stroke="var(--teal)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="2.5" width="9" height="6" rx="1"/>
+                        <path d="M1 3.5l4.5 3 4.5-3"/>
+                      </svg>
+                    </span>
+                    charlie@byldfinance.com
                   </a>
                   <a href="tel:6129780728" class="contact-link">
-                    <span class="contact-link-icon">📞</span>
+                    <span class="contact-link-icon">
+                      <svg viewBox="0 0 11 11" fill="none" stroke="var(--teal)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 1.5c0 4.5 3 7.5 7 7.5l.5-2-2-.5-.5 1C5.5 7 4 5.5 3.5 4l1-.5L4 1.5H2z"/>
+                      </svg>
+                    </span>
                     612-978-0728
                   </a>
                 </div>
@@ -606,7 +634,18 @@
         <!-- Estimator card -->
         <div class="card">
           <div class="card-header">
-            <div class="card-icon gold">🧮</div>
+            <div class="card-icon gold">
+              <svg viewBox="0 0 16 16" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="2" width="10" height="12" rx="1.5"/>
+                <rect x="5" y="4" width="6" height="2.5" rx="0.5"/>
+                <circle cx="5.5" cy="9"    r="0.65" fill="var(--gold)" stroke="none"/>
+                <circle cx="8"   cy="9"    r="0.65" fill="var(--gold)" stroke="none"/>
+                <circle cx="10.5" cy="9"   r="0.65" fill="var(--gold)" stroke="none"/>
+                <circle cx="5.5" cy="11.5" r="0.65" fill="var(--gold)" stroke="none"/>
+                <circle cx="8"   cy="11.5" r="0.65" fill="var(--gold)" stroke="none"/>
+                <circle cx="10.5" cy="11.5" r="0.65" fill="var(--gold)" stroke="none"/>
+              </svg>
+            </div>
             <div class="card-title">Payment Estimator</div>
           </div>
           <div class="card-body">
@@ -632,7 +671,11 @@
         <!-- Reviews card -->
         <div class="card">
           <div class="card-header">
-            <div class="card-icon gold">⭐</div>
+            <div class="card-icon gold">
+              <svg viewBox="0 0 16 16" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="8,2 9.8,6.2 14.5,6.5 11,9.5 12.2,14 8,11.5 3.8,14 5,9.5 1.5,6.5 6.2,6.2"/>
+              </svg>
+            </div>
             <div class="card-title">What Customers Say</div>
           </div>
           <div class="card-body">
@@ -646,20 +689,23 @@
       </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer — FIX: dynamic year -->
     <div class="footer-note">
-      © 2025 BYLD Finance · Equipment financing for businesses · All rights reserved<br>
+      © <span id="footerYear"></span> BYLD Finance · Equipment financing for businesses · All rights reserved<br>
       <span style="color: var(--border);">—</span>
       This page is provided as a service to Embroidery Hub customers.
     </div>
 
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
+    // ─── Dynamic footer year ─────────────────────────────────
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
     // ─── Payment Estimator ───────────────────────────────────
-    const slider = document.getElementById('equipmentSlider');
+    const slider     = document.getElementById('equipmentSlider');
     const valueLabel = document.getElementById('equipmentValue');
-    const termGrid = document.getElementById('termGrid');
+    const termGrid   = document.getElementById('termGrid');
 
     const terms = [
       { months: 36, factor: 0.033 },
@@ -671,14 +717,7 @@
       return '$' + Number(val).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     }
 
-    function updateEstimator() {
-      const cost = parseInt(slider.value, 10);
-      valueLabel.textContent = formatCurrency(cost);
-
-      // Update slider fill
-      const pct = ((cost - 5000) / (150000 - 5000)) * 100;
-      slider.style.background = `linear-gradient(to right, var(--teal) ${pct}%, var(--border) ${pct}%)`;
-
+    function renderTerms(cost) {
       termGrid.innerHTML = terms.map(t => {
         const payment = Math.round(cost * t.factor);
         return `
@@ -686,46 +725,82 @@
             <div class="term-months">${t.months} mo</div>
             <span class="term-payment">${formatCurrency(payment)}</span>
             <div class="term-per">/ month</div>
-          </div>
-        `;
+          </div>`;
       }).join('');
     }
 
+    function updateEstimator() {
+      const cost = parseInt(slider.value, 10);
+      valueLabel.textContent = formatCurrency(cost);
+
+      // FIX: slider track fill
+      const pct = ((cost - 5000) / (150000 - 5000)) * 100;
+      slider.style.background = `linear-gradient(to right, var(--teal) ${pct}%, var(--border) ${pct}%)`;
+
+      // FIX: fade out payments, update, fade back in
+      termGrid.querySelectorAll('.term-payment').forEach(el => {
+        el.style.opacity = '0';
+      });
+      setTimeout(() => renderTerms(cost), 80);
+    }
+
     slider.addEventListener('input', updateEstimator);
+    renderTerms(25000);
     updateEstimator();
 
     // ─── Reviews carousel ────────────────────────────────────
     const reviews = [
       { name: "Joey Milligan", text: "Charlie McMinn was great during the whole process. She was patient and helpful every step of the way." },
-      { name: "Ron Henry", text: "Easy, fast, painless. I cannot tell you how appreciative I am for Charlie and her team." },
-      { name: "Jeremy T.", text: "Service was fast and easy. Charlie came with a great rate — super friendly and helpful from start to finish." },
-      { name: "Lisa K.", text: "The whole team at BYLD made financing our new equipment a breeze. Would absolutely recommend." },
+      { name: "Ron Henry",     text: "Easy, fast, painless. I cannot tell you how appreciative I am for Charlie and her team." },
+      { name: "Jeremy T.",     text: "Service was fast and easy. Charlie came with a great rate — super friendly and helpful from start to finish." },
+      { name: "Lisa K.",       text: "The whole team at BYLD made financing our new equipment a breeze. Would absolutely recommend." },
     ];
 
     const track = document.getElementById('reviewTrack');
-    const dots = document.getElementById('reviewDots');
+    const dots  = document.getElementById('reviewDots');
     let current = 0;
     let timer;
 
     function buildReviews() {
-      track.innerHTML = reviews.map((r, i) => `
-        <div class="review-item" aria-hidden="${i !== 0}">
+      track.innerHTML = reviews.map(r => `
+        <div class="review-item">
           <div class="review-stars">★★★★★</div>
           <p class="review-text">"${r.text}"</p>
           <div class="review-author">— ${r.name}</div>
-        </div>
-      `).join('');
+        </div>`).join('');
 
       dots.innerHTML = reviews.map((_, i) => `
-        <div class="review-dot ${i === 0 ? 'active' : ''}" data-i="${i}"></div>
-      `).join('');
+        <div class="review-dot${i === 0 ? ' active' : ''}" data-i="${i}"></div>`).join('');
 
       dots.querySelectorAll('.review-dot').forEach(d => {
         d.addEventListener('click', () => goTo(parseInt(d.dataset.i)));
       });
     }
 
+    // FIX: measure actual item width from DOM — no hardcoded gap offset
     function goTo(n) {
       current = (n + reviews.length) % reviews.length;
-      track.style.transform = `translateX(calc(-${current * 100}% - ${current * 12}px))`;
-      dots.querySelectorAll('.review-dot').forEach((d, i) => d.classLi
+      const itemWidth = track.firstElementChild ? track.firstElementChild.offsetWidth : 0;
+      track.style.transform = `translateX(-${current * itemWidth}px)`;
+      dots.querySelectorAll('.review-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      clearInterval(timer);
+      startTimer();
+    }
+
+    function startTimer() {
+      timer = setInterval(() => goTo(current + 1), 5500);
+    }
+
+    buildReviews();
+    startTimer();
+
+    // FIX: recalculate on resize so position never drifts
+    window.addEventListener('resize', () => {
+      const itemWidth = track.firstElementChild ? track.firstElementChild.offsetWidth : 0;
+      track.style.transition = 'none';
+      track.style.transform = `translateX(-${current * itemWidth}px)`;
+      requestAnimationFrame(() => { track.style.transition = ''; });
+    });
+  </script>
+</body>
+</html>
