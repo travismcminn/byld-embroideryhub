@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Embroidery Hub x BYLD Finance — Equipment Financing</title>
+  <link rel="icon" type="image/png" href="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/byld_logo_square.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf8f4;
+      --warm-white: #ffffff;
+      --ink: #1a1a1a;
+      --ink-muted: #4a4a4a;
+      --ink-light: #7a7a7a;
+      --teal: #2c6e6a;
+      --teal-light: #3d8c87;
+      --teal-pale: #e8f4f3;
+      --gold: #c9963a;
+      --gold-light: #f5e6c8;
+      --border: #e2ddd6;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle background texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(44,110,106,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(201,150,58,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 36px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .header-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo-wrap img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+      margin: 0 24px;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--teal-pale);
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .header-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    /* ─── Hero text ─── */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      font-weight: 300;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ─── Stats strip ─── */
+    .stats-strip {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .stat-item {
+      flex: 1;
+      background: var(--warm-white);
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .stat-item:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .stat-item:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      color: var(--teal);
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── Main grid ─── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+      animation: fadeUp 0.6s 0.25s ease both;
+    }
+
+    /* ─── Card base ─── */
+    .card {
+      background: var(--warm-white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .card-icon.teal { background: var(--teal-pale); }
+    .card-icon.gold { background: var(--gold-light); }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .card-body {
+      padding: 20px 24px 24px;
+    }
+
+    /* ─── Form card ─── */
+    .form-card .card-body {
+      padding: 0;
+    }
+
+    .form-card iframe,
+    .form-card > div > div {
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    /* ─── Right column ─── */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ─── Contact block ─── */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contact-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px var(--teal-pale), 0 0 0 5px var(--teal);
+    }
+
+    .contact-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .contact-role {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      margin-bottom: 10px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.875rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover { color: var(--teal-light); }
+
+    .contact-link-icon {
+      width: 18px;
+      height: 18px;
+      background: var(--teal-pale);
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    /* ─── Estimator ─── */
+    .estimator-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .estimator-label span:first-child {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .estimator-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--teal);
+    }
+
+    /* Custom slider */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-pale), 0 2px 6px rgba(44,110,106,0.3);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 0 4px var(--teal-pale), 0 3px 10px rgba(44,110,106,0.35);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border: none;
+      border-radius: 50%;
+      background: var(--teal);
+      cursor: pointer;
+    }
+
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .term-card {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 8px;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .term-card:hover {
+      border-color: var(--teal);
+      background: var(--teal-pale);
+      transform: translateY(-1px);
+    }
+
+    .term-months {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .term-payment {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--teal);
+      display: block;
+    }
+
+    .term-per {
+      font-size: 0.7rem;
+      color: var(--ink-light);
+    }
+
+    /* ─── Reviews ─── */
+    .reviews-section { overflow: hidden; }
+
+    .review-track {
+      display: flex;
+      gap: 12px;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .review-item {
+      flex-shrink: 0;
+      width: 100%;
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .review-stars {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .review-text {
+      font-size: 0.875rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .review-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .review-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .review-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+    }
+
+    .review-dot.active {
+      background: var(--teal);
+      width: 18px;
+    }
+
+    /* ─── Footer note ─── */
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      margin-top: 32px;
+      line-height: 1.6;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .page-wrap { padding: 24px 16px 40px; }
+
+      .header { flex-direction: column; gap: 16px; }
+      .header-divider { width: 60px; height: 1px; margin: 0; }
+
+      .stats-strip { display: none; }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 { font-size: 1.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .term-grid { grid-template-columns: 1fr; gap: 6px; }
+      .term-card { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; }
+      .term-months { margin-bottom: 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrap">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-logo-wrap">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/logo.jpg?v=1774549240"
+          alt="Embroidery Hub"
+        >
+      </div>
+      <div class="header-divider"></div>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+        <div class="header-badge">Financing Partner</div>
+        <img
+          src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/byld_finance_logo.png?v=1746030247"
+          alt="BYLD Finance"
+          style="height: 32px; width: auto; object-fit: contain;"
+        >
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Equipment Financing<br>Built for <em>Embroidery Businesses</em></h1>
+      <p>Fast approvals, flexible terms, and a dedicated advisor — so you can get the equipment you need and get back to creating.</p>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-num">24hr</span>
+        <span class="stat-label">Typical Approval</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">$5K+</span>
+        <span class="stat-label">Equipment Financing</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">36–60</span>
+        <span class="stat-label">Month Terms</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Dedicated Support</span>
+      </div>
+    </div>
+
+    <!-- Main grid -->
+    <div class="main-grid">
+
+      <!-- LEFT: Form -->
+      <div class="card form-card">
+        <div class="card-header">
+          <div class="card-icon teal">📋</div>
+          <div>
+            <div class="card-title">Start Your Application</div>
+            <div style="font-size: 0.78rem; color: var(--ink-light); margin-top: 2px;">Takes about 3 minutes</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <script type="text/javascript" src="https://form.jotform.com/jsform/260845988812169"></script>
+        </div>
+      </div>
+
+      <!-- RIGHT column -->
+      <div class="right-col">
+
+        <!-- Contact card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon teal">💬</div>
+            <div class="card-title">Have Questions?</div>
+          </div>
+          <div class="card-body">
+            <div class="contact-row">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0878/0608/3384/files/charlie_newest_headshot.png?v=1749240989"
+                alt="Charlie McMinn"
+                class="contact-avatar"
+              >
+              <div>
+                <div class="contact-name">Charlie McMinn</div>
+                <div class="contact-role">Equipment Finance Advisor, BYLD Finance</div>
+                <div class="contact-links">
+                  <a href="mailto:charlie@byldfinance.com" class="contact-link">
+                    <span class="contact-link-icon">✉</span>
+                    charlie@byldfinance.com
+                  </a>
+                  <a href="tel:6129780728" class="contact-link">
+                    <span class="contact-link-icon">📞</span>
+                    612-978-0728
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estimator card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon gold">🧮</div>
+            <div class="card-title">Payment Estimator</div>
+          </div>
+          <div class="card-body">
+            <div class="estimator-label">
+              <span>Equipment Cost</span>
+              <span class="estimator-value" id="equipmentValue">$25,000</span>
+            </div>
+            <input
+              type="range"
+              id="equipmentSlider"
+              min="5000"
+              max="150000"
+              step="1000"
+              value="25000"
+            >
+            <div class="term-grid" id="termGrid"></div>
+            <p style="font-size: 0.72rem; color: var(--ink-light); margin-top: 14px; line-height: 1.5;">
+              *Estimated payments use standard lease factors and are for illustration only. Actual terms vary based on credit profile.
+            </p>
+          </div>
+        </div>
+
+        <!-- Reviews card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon gold">⭐</div>
+            <div class="card-title">What Customers Say</div>
+          </div>
+          <div class="card-body">
+            <div class="reviews-section">
+              <div class="review-track" id="reviewTrack"></div>
+              <div class="review-dots" id="reviewDots"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-note">
+      © 2025 BYLD Finance · Equipment financing for businesses · All rights reserved<br>
+      <span style="color: var(--border);">—</span>
+      This page is provided as a service to Embroidery Hub customers.
+    </div>
+
+  </div>
+
+  <script>
+    // ─── Payment Estimator ───────────────────────────────────
+    const slider = document.getElementById('equipmentSlider');
+    const valueLabel = document.getElementById('equipmentValue');
+    const termGrid = document.getElementById('termGrid');
+
+    const terms = [
+      { months: 36, factor: 0.033 },
+      { months: 48, factor: 0.026 },
+      { months: 60, factor: 0.022 },
+    ];
+
+    function formatCurrency(val) {
+      return '$' + Number(val).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    function updateEstimator() {
+      const cost = parseInt(slider.value, 10);
+      valueLabel.textContent = formatCurrency(cost);
+
+      // Update slider fill
+      const pct = ((cost - 5000) / (150000 - 5000)) * 100;
+      slider.style.background = `linear-gradient(to right, var(--teal) ${pct}%, var(--border) ${pct}%)`;
+
+      termGrid.innerHTML = terms.map(t => {
+        const payment = Math.round(cost * t.factor);
+        return `
+          <div class="term-card">
+            <div class="term-months">${t.months} mo</div>
+            <span class="term-payment">${formatCurrency(payment)}</span>
+            <div class="term-per">/ month</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    slider.addEventListener('input', updateEstimator);
+    updateEstimator();
+
+    // ─── Reviews carousel ────────────────────────────────────
+    const reviews = [
+      { name: "Joey Milligan", text: "Charlie McMinn was great during the whole process. She was patient and helpful every step of the way." },
+      { name: "Ron Henry", text: "Easy, fast, painless. I cannot tell you how appreciative I am for Charlie and her team." },
+      { name: "Jeremy T.", text: "Service was fast and easy. Charlie came with a great rate — super friendly and helpful from start to finish." },
+      { name: "Lisa K.", text: "The whole team at BYLD made financing our new equipment a breeze. Would absolutely recommend." },
+    ];
+
+    const track = document.getElementById('reviewTrack');
+    const dots = document.getElementById('reviewDots');
+    let current = 0;
+    let timer;
+
+    function buildReviews() {
+      track.innerHTML = reviews.map((r, i) => `
+        <div class="review-item" aria-hidden="${i !== 0}">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"${r.text}"</p>
+          <div class="review-author">— ${r.name}</div>
+        </div>
+      `).join('');
+
+      dots.innerHTML = reviews.map((_, i) => `
+        <div class="review-dot ${i === 0 ? 'active' : ''}" data-i="${i}"></div>
+      `).join('');
+
+      dots.querySelectorAll('.review-dot').forEach(d => {
+        d.addEventListener('click', () => goTo(parseInt(d.dataset.i)));
+      });
+    }
+
+    function goTo(n) {
+      current = (n + reviews.length) % reviews.length;
+      track.style.transform = `translateX(calc(-${current * 100}% - ${current * 12}px))`;
+      dots.querySelectorAll('.review-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      clearInterval(timer);
+      startTimer();
+    }
+
+    function startTimer() {
+      timer = setInterval(() => goTo(current + 1), 5500);
+    }
+
+    buildReviews();
+    startTimer();
+  </script>
+</body>
+</html>
